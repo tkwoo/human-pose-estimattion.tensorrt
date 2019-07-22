@@ -50,26 +50,9 @@ for i in range(20):
 # print (output_data.shape)
 print ('[INFO] processing time:%.3fms'%(proc_time_sum/20))
 
-# exit()
 preds, maxvals = get_final_preds(output_data, [c], [s])
 
-keypoints = []
-cnt_num_point = 0
-for idx, ptval in enumerate(zip(preds[0], maxvals[0])):
-    point, maxval = ptval
-    x,y = point
-    # print (x,y, maxval)
-    if maxval > 0.5:
-        keypoints.extend([x,y,2])
-        cnt_num_point += 1
-        cv2.circle(img_orig, (x,y), 4, (0,0,255), -1)
-    else:
-        keypoints.extend([0,0,0])
-
-x,y,w,h = (40,101,729,648) #(326,194,101,330)
-cv2.rectangle(img_orig, (x,y), (x+w,y+h), (0,255,0), 1)
-
-
+### coco style prediction & draw the result
 annotations = []
 cnt_num_point = 0
 for obj_idx in range(len(objs)):
